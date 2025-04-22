@@ -10,14 +10,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Product {
+public class PriceAlert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String url;
+    private String productUrl;
     private double targetPrice;
-    private String email;
+    private String userEmail;
 
 }
+
 

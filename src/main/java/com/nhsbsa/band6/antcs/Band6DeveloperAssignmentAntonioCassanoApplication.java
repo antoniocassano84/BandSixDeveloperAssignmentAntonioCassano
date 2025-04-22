@@ -1,6 +1,6 @@
 package com.nhsbsa.band6.antcs;
 
-import com.nhsbsa.band6.antcs.model.Product;
+import com.nhsbsa.band6.antcs.model.PriceAlert;
 import com.nhsbsa.band6.antcs.repo.ProductRepository;
 import com.nhsbsa.band6.antcs.service.EmailService;
 import com.nhsbsa.band6.antcs.service.PriceService;
@@ -32,9 +32,9 @@ public class Band6DeveloperAssignmentAntonioCassanoApplication {
 
     @Scheduled(fixedRate = 3600000) // Check every hour
     public void checkPrices() {
-        List<Product> products = productRepository.findAll();
+        List<PriceAlert> products = productRepository.findAll();
         if(!products.isEmpty()) {
-            for (Product product : products) {
+            for (PriceAlert product : products) {
                 double currentPrice = priceService.fetchCurrentPrice(product.getUrl());
                 if (currentPrice <= product.getTargetPrice()) {
                     emailService.sendPriceDropAlert(product.getEmail(), product.getUrl(), currentPrice);
