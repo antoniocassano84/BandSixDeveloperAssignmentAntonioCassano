@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/alerts")
 public class PriceAlertController {
 
-    private PriceAlertRepository repository;
+    private final PriceAlertRepository repository;
+
+    public PriceAlertController(PriceAlertRepository repository) {
+        this.repository = repository;
+    }
 
     @PostMapping
-    public ResponseEntity<PriceAlert> createAlert(@RequestBody PriceAlert alert) {
-        PriceAlert savedAlert = repository.save(alert);
-        return ResponseEntity.ok(savedAlert);
+    public ResponseEntity<String> createAlert(@RequestBody PriceAlert alert) {
+        repository.save(alert);
+        return ResponseEntity.ok("Alert set successfully for product: " + alert);
     }
+
 }
 
